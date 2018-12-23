@@ -1,18 +1,27 @@
 <?php
-
+	$result = "";
 	if (isset($_POST['submit]'])){
-	$name = $_POST['name'];
-	$mailFrom = $_POST['mail'];
-	$message = $_POST['message'];
-	$subject = $_POST['subject'];
 
-	$mailTo = "photography@samijandali.com";
-	$headers = "From: ".$mailFrom;
-	$txt = "You have received an e-mail from ".$name.".\n\n".$message;
+		require('PHPMailer/PHPMailerAutoload.php');
+		$mail = new PHPMailer();
+		$mail->Port = 587;
+		$mail->SMTPAuth = true;
+		$mail->SMTPSecure = 'tls';
+		$mail->Username = 'photography.contactform.sami@gmail.com';
+		$mail->Password = 'S619v$L#xDPi';
 
-	mail($mailTo, $subject, $txt, $headers);
+		$mail->setFrom($_POST['email'], $_POST['name']);
+		$mail->addAddress('photography@samijandali.com');
+		$mail->addReplyTo($_POST['email'],$_POST['name']);
 
-	header("Location: Contact-Classic.html?mailsend");
+		$mail->isHTML(true);
+		$mail->Subject = 'Form Submission '.$_POST['subject'];
+		$mail->Body= '<h1 align = center> Name: '.$_POST['name'].'<br>Eail: '.$_POST['email'].'<br> Message: '.$_POST['message'].'</h1>';
+		if(!$mail->send()){
+			$result = "something went wrong";
+		}else{
+			$result = "something went right";
+		}
 	}
 
 	?>
