@@ -1,30 +1,24 @@
 <?php
 
-	if (isset($_POST['submit]'])){
+$whitelist = array ('name', 'email', 'message');
 
-		require('phpmailer/PHPMailerAutoload.php');
-		$mail = new PHPMailer();
+$email_address = 'samirifai18@gmail.com';
 
-		$mail->Port = 587;
-		$mail->SMTPAuth = true;
-		$mail->SMTPSecure = 'tls';
-		$mail->Host='smtp.gmail.com';
+$subject = 'New Contact Form Submission';
 
-		$mail->Username = 'photography.contactform.sami@gmail.com';
-		$mail->Password = 'S619v$L#xDPi';
+$errors = array();
+$fields = array();
 
-		$mail->setFrom($_POST['email'], $_POST['name']);
-		$mail->addAddress('photography@samijandali.com');
-		$mail->addReplyTo($_POST['email'],$_POST['name']);
-
-		$mail->isHTML(true);
-		$mail->Subject = 'Form Submission '.$_POST['subject'];
-		$mail->Body= '<h1 align = center> Name: '.$_POST['name'].'<br>Eail: '.$_POST['email'].'<br> Message: '.$_POST['message'].'</h1>';
-		if(!$mail->send()){
-			$result = "something went wrong";
-		}else{
-			$result = 
-		}
+foreach( $whitelist as $key){
+	$fields[$key] = $_POST[$key];
+}
+foreach($fields as $field => $data){
+	if(empty($data)){
+		$errors[] = 'Please enter your '.$field;
 	}
+}
 
-	?>
+$sent = mail($email_address, $subject, $fields['message']);
+
+
+?>
