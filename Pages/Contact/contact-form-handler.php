@@ -13,7 +13,7 @@
 		$mail->Username = 'photography.contactform.sami@gmail.com';
 		$mail->Password = 'S619v$L#xDPi';
 
-		$mail->setFrom('$_POST['email'], $_POST['name']');
+		$mail->setFrom($_POST['email'], $_POST['name']);
 		$mail->addAddress('photography@samijandali.com');
 		$mail->addReplyTo($_POST['email'],$_POST['name']);
 
