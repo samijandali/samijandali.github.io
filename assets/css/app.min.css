@@ -6645,7 +6645,7 @@ body.loaded:after {
     padding: 70px 20px
 }
 .section, .section-md {
-    padding: 100px 0
+    padding: 50px 0
 }
 .section-md.bg-image .container, .section-md.bg-image .container-fluid, .section.bg-image .container, .section.bg-image .container-fluid {
     padding: 100px 20px
